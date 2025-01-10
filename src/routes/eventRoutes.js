@@ -1,20 +1,22 @@
-import express from 'express';
+import express from "express";
 import {
   createEvent,
-  // add restOfFunctions here, // demo only
-} from '../controllers/eventController.js';
-import { authenticateToken } from '../middlewares/authMiddleware.js';
+  getEventById,
+  getAllEvents,
+  registerEvent,
+  updateEvent,
+  getRegDetails
+} from "../controllers/eventController.js";
+import { authenticateToken, checkRole } from "../middlewares/authMiddleware.js";
+import { uploadFile } from "../middlewares/eventMiddleware.js";
 
 const router = express.Router();
 
-router.post('/', authenticateToken, createEvent);
-router.get(
-  '/:id'
-  // add restOfFunctions here, // demo only
-);
-router.get(
-  '/'
-  // add restOfFunctions here, // demo only
-);
+router.post("/", authenticateToken, checkRole, uploadFile, createEvent);
+router.get("/:event_id", authenticateToken, getEventById);
+router.get("/:event_id/registration-details", authenticateToken, getRegDetails);
+router.post("/:event_id/register", authenticateToken, registerEvent);
+router.get("/", authenticateToken, getAllEvents);
+router.put("/", authenticateToken, checkRole, updateEvent);
 
 export default router;
