@@ -4,8 +4,15 @@ import eventRoutes from "./routes/eventRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import pool from "./config/db.js";
 import db from './db/orm/models/index.js'
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors({
+  origin: '*', // Replace with your React app's domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+  // credentials: true // If cookies or authentication tokens are needed
+}));
 
 app.use(express.json());
 app.use("/api/users", userRoutes);
