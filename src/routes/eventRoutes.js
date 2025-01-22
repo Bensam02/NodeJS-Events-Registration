@@ -16,7 +16,7 @@ router.post("/", authenticateToken, checkRole, uploadFile, createEvent);
 router.get("/:event_id", authenticateToken, getEventById);
 router.get("/:event_id/registration-details", authenticateToken, getRegDetails);
 router.post("/:event_id/register", authenticateToken, registerEvent);
-router.get("/", authenticateToken, getAllEvents);
+router.get("/", getAllEvents);
 router.put("/", authenticateToken, checkRole, updateEvent);
 
 export default router;
